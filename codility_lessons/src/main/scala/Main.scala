@@ -210,23 +210,16 @@ object Solution {
   }
 
   def solutionMaxDoubleSliceSum(a: Array[Int]): Int = {
-    val maxSumEnd   = Array.fill(a.length)(0)
-    val maxSumStart = Array.fill(a.length)(0)
-
-    for (i <- 1 to a.length - 2) {
-      maxSumEnd(i)   = Math.max(0, maxSumEnd(i - 1)   + a(i))
+    val firstSliceEnd    = Array.fill(a.length)(0)
+    val secondSliceStart = Array.fill(a.length)(0)
+    for (i <- 1 until a.length - 1) {
+      firstSliceEnd(i)    = Math.max(0, firstSliceEnd(i - 1)    + a(i))
     }
     for (i <- (a.length - 2) to 1 by -1) {
-      maxSumStart(i) = Math.max(0, maxSumStart(i + 1) + a(i))
+      secondSliceStart(i) = Math.max(0, secondSliceStart(i + 1) + a(i))
     }
 
-    var maxSum = 0
-    for (i <- 1 to a.length - 2) {
-      val candidate = maxSumEnd(i - 1) + maxSumStart(i + 1)
-      if (maxSum < candidate) { maxSum = candidate }
-    }
-
-    maxSum
+    (firstSliceEnd, secondSliceStart.drop(2)).zipped.map(_ + _).max
   }
 }
 
