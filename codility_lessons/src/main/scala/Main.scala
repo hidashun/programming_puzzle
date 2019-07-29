@@ -223,6 +223,20 @@ object Solution {
   }
 
   def solution(a: Array[Int]): Int = {
+    def allBlocksContainsPeak(n: Int, blockCount: Int, peakIndexes: Seq[Int]): Boolean = {
+      val blockLength = n / blockCount
+      var lastIndexOfBlock = blockLength - 1
+      var maxCheckedBlock = 0
+      for (peakIndex <- peakIndexes) {
+        if (lastIndexOfBlock - blockLength + 1 <= peakIndex && peakIndex <= lastIndexOfBlock) {
+          maxCheckedBlock = lastIndexOfBlock
+          lastIndexOfBlock += blockLength
+        } else if (maxCheckedBlock < peakIndex) {
+          return false
+        }
+      }
+      n <= lastIndexOfBlock
+    }
     if (a.length < 3) { return 0 }
     val peakIndexes = (1 until a.length - 1).filter(
       p => a(p - 1) < a(p) && a(p) > a(p + 1)
@@ -230,28 +244,8 @@ object Solution {
     if (peakIndexes.isEmpty) { return 0 }
     val n = a.length
 
-    for (splitSize <- peakIndexes.length to 2 by -1) {
-      var currentPeakPos = 0
-      if (n % splitSize == 0) {
-        val blockLength = n / splitSize
-        var peakMissingBlockFound = false
-        var firstIndexOfBlock = 0
-        var lastIndexOfBlock  = blockLength - 1
-        while (lastIndexOfBlock < n && !peakMissingBlockFound) {
-          val peakIndex = peakIndexes(currentPeakPos)
-          if (peakIndex < firstIndexOfBlock ||  lastIndexOfBlock < peakIndex) {
-            peakMissingBlockFound = true
-          } else {
-            currentPeakPos += 1
-            while (currentPeakPos < peakIndexes.length - 1 && peakIndexes(currentPeakPos) <= lastIndexOfBlock) {
-              currentPeakPos += 1
-            }
-            firstIndexOfBlock += blockLength
-            lastIndexOfBlock  += blockLength
-          }
-        }
-        if (!peakMissingBlockFound) { return splitSize }
-      }
+    for (blockCount <- peakIndexes.length to 2 by -1 if n % blockCount == 0) {
+      if (allBlocksContainsPeak(n, blockCount, peakIndexes)) { return blockCount }
     }
     1
   }
