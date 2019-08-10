@@ -251,7 +251,7 @@ object Solution {
   }
 
 
-   def solution(n: Int, a: Array[Int]): Array[Int] = {
+   def solutionPeaks(n: Int, a: Array[Int]): Array[Int] = {
      import scala.collection.mutable
      val reversedA = a.reverse
      val maxCounterOp = n + 1
@@ -283,6 +283,20 @@ object Solution {
 //     println(acc, counterOfLastSequence)
      (0 until n).map(counterOfLastSequence.getOrElse(_, 0) + acc).toArray
    }
+
+  def solutionPermCheck(a: Array[Int]): Int = {
+    import scala.collection.mutable
+    val counter: mutable.Map[Int, Int] = mutable.Map()
+
+    for (i <- a) {
+      counter.get(i) match {
+        case Some(_) => return 0
+        case None => counter(i) = 1
+      }
+    }
+
+    if (counter.keysIterator.max == a.length) { 1 } else { 0 }
+  }
 }
 
 
@@ -306,7 +320,8 @@ object Main extends App {
   )
 //  var result = Solution.solution(input)
   val input3 = Array(3, 4, 4, 6, 1, 4, 4)
-  println(result.mkString(","))
+  val input4 = Array(4, 4, 1, 2)
+  println(Solution.solutionPermCheck(input4))
   //    var result = Solution.solution(24)
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
