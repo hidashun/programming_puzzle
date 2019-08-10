@@ -297,6 +297,20 @@ object Solution {
 
     if (counter.keysIterator.max == a.length) { 1 } else { 0 }
   }
+
+  def solutionPassingCars(a: Array[Int]): Int = {
+    var numberOfCarsGoesEast: Int = 0
+    var passing = 0
+    for (n <- a) {
+      if (n == 0) {
+        numberOfCarsGoesEast += 1
+      } else {
+        passing += numberOfCarsGoesEast
+      }
+      if (1000000000 < passing) { return -1 }
+    }
+    passing
+  }
 }
 
 
@@ -320,8 +334,8 @@ object Main extends App {
   )
 //  var result = Solution.solution(input)
   val input3 = Array(3, 4, 4, 6, 1, 4, 4)
-  val input4 = Array(4, 4, 1, 2)
-  println(Solution.solutionPermCheck(input4))
+  val input4 = Array(0, 1, 0, 1, 1)
+  println(Solution.solutionPassingCars(input4))
   //    var result = Solution.solution(24)
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
