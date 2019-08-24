@@ -1,4 +1,4 @@
-import scala.collection.mutable
+import scala.collection.{immutable, mutable}
 // simple large positive test, 100K ('s followed by 100K )'s + )(
 // 10K+1 ('s followed by 10K )'s + )( + ()
 
@@ -42,7 +42,7 @@ object Solution {
   }
 
   def solutionDominator(a: Array[Int]): Int = {
-    var n = a.length
+    val n = a.length
     var size = 0
     var value = -1
     for (k <- 0 until n) {
@@ -311,6 +311,61 @@ object Solution {
     }
     passing
   }
+
+  def solutionEquileader(a: Array[Int]): Int = {
+//    println(a.length)
+//    println(a.slice(0, 10).mkString(","))
+    import scala.collection.mutable
+    if (a.length < 2) { return 0 }
+
+    def searchLeader(numbers: Array[Int], order: Seq[Int]): Array[Int] = {
+//      println(order.mkString(","))
+      val stack = mutable.Stack[Int]()
+      val stackTops = Array.fill(a.length)(-1)
+      for (i <- order) {
+        val n = a(i)
+        if (stack.isEmpty) {
+          stack.push(n)
+        } else {
+          if (stack.top == n) {
+            stack.push(n)
+          } else {
+            stack.pop
+          }
+        }
+        if (stack.nonEmpty) {
+          stackTops(i) = stack.top
+        }
+      }
+      if (stack.nonEmpty) {
+//        println(stackTops.map(v => f"$v%3d").mkString(","))
+        val leader  = stack.top
+        var count = 0
+        var index = 0
+        while (count <= (index + 1)/ 2 && index < order.length - 1) {
+//          println(count, index + 1, (index + 1) / 2)
+          val n = a(order(index))
+          if (n == leader) {
+            count += 1
+          }
+           index += 1
+          if (count <(index + 1) / 2 ) { stackTops(order(index)) = -1 }
+        }
+//        println(count)
+        stackTops
+      } else {
+        Array.fill(a.length)(-1)
+      }
+    }
+
+    val stackTops = searchLeader(a, 0 until a.length - 1)
+    val stackTops2 = searchLeader(a, a.length - 1 until 0 by -1)
+
+//    println(stackTops.dropRight(1).map(v => f"$v%3d").mkString(","))
+//    println((stackTops2.drop(1)).map(v => f"$v%3d").mkString(","))
+
+    stackTops.dropRight(1).zip(stackTops2.drop(1)).count(v => v._1 != -1 && v._1 == v._2)
+  }
 }
 
 
@@ -335,7 +390,19 @@ object Main extends App {
 //  var result = Solution.solution(input)
   val input3 = Array(3, 4, 4, 6, 1, 4, 4)
   val input4 = Array(0, 1, 0, 1, 1)
-  println(Solution.solutionPassingCars(input4))
+//  val input5 = Array(4, 3, 4, 4, 4, 2)
+//  val input5 = Array(4, 4, 2, 5, 3, 4, 4, 4)
+//val input5 = Array(0, 0)
+  val input5 = Array(79,70,96,57,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,97,17,72,97,87)
+//  println(Solution.solutionPassingCars(input4))
+
+ import scala.util.Random
+
+//  val numbers = {
+//    (0 until 5).map(_ => Random.nextInt(100)) ++ Seq.fill(20)(0) ++ (0 until 5).map(_ => Random.nextInt(100))
+//  }
+//  println(numbers.mkString(","))
+  println(Solution.solutionEquileader(input5))
   //    var result = Solution.solution(24)
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
