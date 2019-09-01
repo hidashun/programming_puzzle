@@ -366,6 +366,36 @@ object Solution {
 
     stackTops.dropRight(1).zip(stackTops2.drop(1)).count(v => v._1 != -1 && v._1 == v._2)
   }
+
+  def solutionMinAvgTwoSlice(a: Array[Int]): Int = {
+    if (a.length <= 2) { return 0 }
+
+    var minStartPos = 0
+
+    var minAvg = (a(0) + a(1)).toDouble / 2
+
+    val avgOfTwo = (a(1) + a(2)).toDouble / 2
+    if (avgOfTwo < minAvg) {
+      minStartPos = 1
+      minAvg = avgOfTwo
+    }
+
+    if (a.length == 3) { return minStartPos }
+
+    for (index <- (3 until a.length)) {
+      val avgOfTwo = (a(index - 1) + a(index)).toDouble / 2
+      val avgOfThree = (a(index - 2) + a(index - 1) + a(index)).toDouble / 3
+      if (avgOfTwo < minAvg) {
+        minAvg = avgOfTwo
+        minStartPos = index - 1
+      }
+      if (avgOfThree < minAvg) {
+        minAvg = avgOfThree
+        minStartPos = index - 2
+      }
+    }
+    minStartPos
+  }
 }
 
 
@@ -402,7 +432,8 @@ object Main extends App {
 //    (0 until 5).map(_ => Random.nextInt(100)) ++ Seq.fill(20)(0) ++ (0 until 5).map(_ => Random.nextInt(100))
 //  }
 //  println(numbers.mkString(","))
-  println(Solution.solutionEquileader(input5))
+  var input6 = Array(4, 2, 2, 5, 1, 5, 8)
+  println(Solution.solutionMinAvgTwoSlice(input6))
   //    var result = Solution.solution(24)
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
