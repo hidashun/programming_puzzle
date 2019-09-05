@@ -396,6 +396,24 @@ object Solution {
     }
     minStartPos
   }
+
+  def solutionFrogRiverOne(x: Int, a: Array[Int]): Int = {
+    import scala.collection.mutable
+    val fallen: mutable.Map[Int, Int] = mutable.Map.empty
+    var fallenCount = 0
+    for (index <- a.indices) {
+      val pos = a(index)
+      fallen.get(pos) match {
+        case None => {
+          fallenCount += 1
+          fallen(pos) = 1
+        }
+        case _ =>
+      }
+      if (fallenCount == x) { return index }
+    }
+    -1
+  }
 }
 
 
@@ -432,8 +450,10 @@ object Main extends App {
 //    (0 until 5).map(_ => Random.nextInt(100)) ++ Seq.fill(20)(0) ++ (0 until 5).map(_ => Random.nextInt(100))
 //  }
 //  println(numbers.mkString(","))
-  var input6 = Array(4, 2, 2, 5, 1, 5, 8)
-  println(Solution.solutionMinAvgTwoSlice(input6))
+//  var input6 = Array(4, 2, 2, 5, 1, 5, 8)
+//  println(Solution.solutionMinAvgTwoSlice(input6))
+  var input7 = Array(1, 3, 1, 4, 2, 3, 5, 4)
+  println(Solution.solutionFrogRiverOne(5, input7))
   //    var result = Solution.solution(24)
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
