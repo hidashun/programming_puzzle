@@ -1,3 +1,5 @@
+import solution.Triangle
+
 import scala.collection.{immutable, mutable}
 // simple large positive test, 100K ('s followed by 100K )'s + )(
 // 10K+1 ('s followed by 10K )'s + )( + ()
@@ -414,8 +416,18 @@ object Solution {
     }
     -1
   }
-}
 
+  def solutionTriangle(a: Array[Int]): Int = {
+    val sortedA = a.sorted
+    var count = 0
+    for (index <- (0 until sortedA.length - 2)) {
+      if (sortedA(index) + sortedA(index + 1) > sortedA(index + 2)) {
+        count += 1
+      }
+    }
+    count
+  }
+}
 
 object Main extends App {
 //  var result = Solution.solution(Array(1, 2, 3, 4, 3, 4, 1, 2, 3, 3, 6, 2))
@@ -452,9 +464,14 @@ object Main extends App {
 //  println(numbers.mkString(","))
 //  var input6 = Array(4, 2, 2, 5, 1, 5, 8)
 //  println(Solution.solutionMinAvgTwoSlice(input6))
-  var input7 = Array(1, 3, 1, 4, 2, 3, 5, 4)
-  println(Solution.solutionFrogRiverOne(5, input7))
-  //    var result = Solution.solution(24)
+//  var input7 = Array(1, 3, 1, 4, 2, 3, 5, 4)
+//  println(Solution.solutionFrogRiverOne(5, input7))
+  var input8 = Array(10, 2, 5, 1, 8, 20)
+      println(Triangle.solution(input8))
+  var input9 = Array(10, 50, 5, 1)
+  println(Triangle.solution(input9))
+  var input10 = Array(1, 1, 1, 1, 5, 5, 5)
+  println(Triangle.solution(input10))
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
   //  var result = Solution.solutionTapeEquilibrium(Array(12, -5, -7, -2, 10))
