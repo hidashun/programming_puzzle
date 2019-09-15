@@ -1,4 +1,4 @@
-import solution.Triangle
+import solution.{Fish, Triangle}
 
 import scala.collection.{immutable, mutable}
 // simple large positive test, 100K ('s followed by 100K )'s + )(
@@ -455,12 +455,13 @@ object Main extends App {
 //  println(Solution.solutionMinAvgTwoSlice(input6))
 //  var input7 = Array(1, 3, 1, 4, 2, 3, 5, 4)
 //  println(Solution.solutionFrogRiverOne(5, input7))
-  var input8 = Array(10, 2, 5, 1, 8, 20)
-      println(Triangle.solution(input8))
-  var input9 = Array(10, 50, 5, 1)
-  println(Triangle.solution(input9))
-  var input10 = Array(1, 1, 1, 1, 5, 5, 5)
-  println(Triangle.solution(input10))
+//  var input8 = Array(10, 2, 5, 1, 8, 20)
+//      println(Triangle.solution(input8))
+//  var input9 = Array(10, 50, 5, 1)
+//  println(Triangle.solution(input9))
+//  var input10 = Array(1, 1, 1, 1, 5, 5, 5)
+//  println(Triangle.solution(input10))
+  println(Fish.solution(Array(2, 6, 7, 8, 4, 3, 5), Array(0, 0, 1, 0, 1, 0, 0)))
   //  var result = Solution.solution(Array(2, -5, 3, -4, 1))
   //  var result = Solution.solution(Array(-1000, 1000))
   //  var result = Solution.solutionTapeEquilibrium(Array(12, -5, -7, -2, 10))
