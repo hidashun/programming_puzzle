@@ -2,9 +2,21 @@ package solution
 
 object Nesting {
  def solution(s: String): Int = {
-   if (s.length <= 22) { println(s) }
-   if (s == "(()(())())") { return 1 }
-   else if (s == "())") { return 0 }
-    s.length
+   import scala.collection.mutable
+
+   val stack: mutable.Stack[Short] = mutable.Stack()
+
+   for (c <- s) {
+     if (c == '(') {
+       stack.push(0)
+     } else {
+       if (stack.nonEmpty) {
+         stack.pop
+       } else {
+         return 0
+       }
+     }
+   }
+   if (stack.isEmpty) 1 else 0
  }
 }
