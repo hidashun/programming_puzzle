@@ -1,4 +1,4 @@
-name := "codility"
+name := "leetcode"
 
 version := "0.1"
 
