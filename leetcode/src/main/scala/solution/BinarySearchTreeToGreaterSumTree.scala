@@ -30,7 +30,7 @@ object BinarySearchTreeToGreaterSumTree {
               r.append(None)
           }
         }
-        r
+        r.toSeq
       }
 
       def serialize2(root: TreeNode): Seq[Option[Int]] = {
