@@ -1,6 +1,16 @@
-import solution.ScoreOfParentheses
+import solution.{ScoreOfParentheses, SearchMatrix}
 
 object Main extends App {
-  val result = ScoreOfParentheses.scoreOfParentheses("(()(()))")
+  val matrix: Array[Array[Int]] = Array(
+    Array( 1,  4,  7, 11, 15),
+    Array( 2,  5,  8, 12, 19),
+    Array( 3,  6,  9, 16, 22),
+    Array(10, 13, 14, 17, 24),
+    Array(18, 21, 23, 26, 30),
+  )
+  val result = SearchMatrix.searchMatrix(
+    matrix,
+    25
+  )
   println(result)
 }
