@@ -1,6 +1,6 @@
-import solution.TwoSumSolution
+import solution.ScoreOfParentheses
 
 object Main extends App {
-  val result = TwoSumSolution.twoSum(Array.empty[Int], 0)
-  println(result.mkString(","))
+  val result = ScoreOfParentheses.scoreOfParentheses("(()(()))")
+  println(result)
 }

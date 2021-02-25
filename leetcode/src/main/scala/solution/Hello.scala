@@ -5,7 +5,7 @@ import util.Helper
 //import scala.io.StdIn.readLine
 
 object Hello {
-  def main(args: Array[String]): Helper = {
+  def hello(args: Array[String]): Helper = {
     val helper = new Helper
     val readLine = helper.getReadLine("3", "Hello")
     val println = helper.myPrintln
